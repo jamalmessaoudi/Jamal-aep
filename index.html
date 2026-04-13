@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المناطق - برج الحواس</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl; text-align: right; background-color: #f4f4f9; padding: 20px; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        button { margin: 8px 4px; padding: 12px 20px; cursor: pointer; background-color: #3498db; color: white; border: none; border-radius: 5px; font-size: 16px; transition: 0.3s; }
+        button:hover { background-color: #2980b9; }
+        .content-box { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 15px; display: none; }
+        .sub-content { background: #ecf0f1; padding: 10px; border-right: 4px solid #3498db; margin-top: 10px; display: none; }
+        p { margin: 5px 0; color: #34495e; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+
+    <h1>إدارة المناطق</h1>
+
+
+    <button onclick="toggleSection('m1')">وسط المدينة</button>
+    <button onclick="toggleSection('m2')">تبكات</button>
+    <button onclick="toggleSection('m3')">إريرير</button>
+
+
+    <div id="m1" class="content-box">
+        <h3>📍 وسط المدينة</h3>
+        <button onclick="toggleSub('m1t')">الخزانات</button>
+        <button onclick="toggleSub('m1w')">الآبار</button>
+        <div id="m1t" class="sub-content">
+            <p>• برج الحواس</p>
+            <p>• خزان 500 م³</p>
+            <p>• خزان 2000 م³</p>
+        </div>
+        <div id="m1w" class="sub-content">
+            <p>• بئر 1</p>
+            <p>• بئر 2</p>
+            <p>• بئر 3</p>
+        </div>
+    </div>
+
+
+    <div id="m2" class="content-box">
+        <h3>📍 تبكات</h3>
+        <button onclick="toggleSub('m2t')">الخزانات</button>
+        <button onclick="toggleSub('m2w')">الآبار</button>
+        <div id="m2t" class="sub-content">
+            <p>• خزان 100 م³</p>
+            <p>• خزان 150 م³</p>
+        </div>
+        <div id="m2w" class="sub-content">
+            <p>• بئر 1</p>
+        </div>
+    </div>
+
+
+    <div id="m3" class="content-box">
+        <h3>📍 إريرير</h3>
+        <button onclick="toggleSub('m3t')">الخزانات</button>
+        <button onclick="toggleSub('m3w')">الآبار</button>
+        <div id="m3t" class="sub-content">
+            <p>• خزان 500 م³</p>
+        </div>
+        <div id="m3w" class="sub-content">
+            <p>• بئر 1</p>
+        </div>
+    </div>
+
+
+    <script>
+        function toggleSection(id) {
+            document.querySelectorAll('.content-box').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.sub-content').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+        function toggleSub(id) {
+            document.querySelectorAll('.sub-content').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+    </script>
+
+
+</body>
+</html>
+
