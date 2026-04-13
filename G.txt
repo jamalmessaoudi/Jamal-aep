@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منشآت الري - جانت</title>
+
+
+<style>
+body{
+margin:0;
+font-family:Tahoma;
+background:#0f2027;
+color:#fff;
+}
+
+
+header{
+text-align:center;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+background:#203a43;
+}
+
+
+.container{
+max-width:900px;
+margin:auto;
+padding:15px;
+}
+
+
+.card{
+background:#1f3b4d;
+padding:15px;
+margin:10px 0;
+border-radius:12px;
+cursor:pointer;
+}
+
+
+.card:hover{background:#2a4d63;}
+
+
+.btn{
+background:#ff9800;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+color:#fff;
+cursor:pointer;
+margin-bottom:10px;
+}
+
+
+.badge{
+padding:3px 7px;
+border-radius:5px;
+font-size:11px;
+}
+
+
+.green{background:#00c853;}
+.red{background:#d50000;}
+
+
+h3{margin-top:15px;}
+</style>
+</head>
+
+
+<body>
+
+
+<header>🚰 منشآت الري - ولاية جانت</header>
+
+
+<div class="container" id="app"></div>
+
+
+<script>
+
+
+let view="home";
+let zone="";
+
+
+const data={
+"برج الحواس":{
+"وسط المدينة":{
+tanks:[
+["2000 م³","green"],
+["100 م³","red"],
+["100 م³","red"],
+["300 م³","red"],
+["250 م³","red"]
+],
+wells:[
+["12 م","green"],
+["12 م","green"],
+["12 م","green"]
+]
+},
+"إهدجيرن":{
+tanks:[["500 م³","red"]],
+wells:[
+["300 م","green"],
+["300 م","green"],
+["300 م","red"],
+["300 م","red"],
+["300 م","red"]
+]
+},
+"التبكات":{
+tanks:[
+["100 م³","green"],
+["200 م³","green"]
+],
+wells:[
+["12 م","red"],
+["12 م","green"]
+]
+},
+"تين تماشي":{
+tanks:[["100 م³","green"]],
+wells:[
+["12 م","green"],
+["12 م","green"],
+["12 م","red"],
+["12 م","red"],
+["12 م","red"]
+]
+},
+"إهرير":{
+tanks:[
+["300 م³","green"],
+["150 م³","green"],
+["150 م³","red"]
+],
+wells:[
+["120 م","green"],
+["12 م","green"],
+["12 م","green"],
+["12 م","red"],
+["12 م","red"]
+]
+},
+"تنقلين":{
+tanks:[["150 م³","green"]],
+wells:[["12 م","green"]]
+},
+"بذاهجرين":{
+tanks:[],
+wells:[["10 م","green"]]
+},
+"تاشت":{
+tanks:[],
+wells:[]
+}
+}
+};
+
+
+function render(){
+
+
+let app=document.getElementById("app");
+app.innerHTML="";
+
+
+// HOME
+if(view==="home"){
+app.innerHTML=`
+<div class="card" onclick="view='zones';render()">
+🏢 بلدية برج الحواس
+</div>
+
+
+<div class="card">
+🏢 بلدية جانت (فارغة)
+</div>
+`;
+}
+
+
+// ZONES
+else if(view==="zones"){
+app.innerHTML=`<button class="btn" onclick="view='home';render()">⬅ رجوع</button>`;
+
+
+for(let z in data["برج الحواس"]){
+app.innerHTML+=`
+<div class="card" onclick="openZone('${z}')">
+📍 ${z}
+</div>
+`;
+}
+}
+
+
+// DETAILS
+else if(view==="zone"){
+let zdata=data["برج الحواس"][zone];
+
+
+app.innerHTML=`<button class="btn" onclick="view='zones';render()">⬅ رجوع</button>`;
+app.innerHTML+=`<h2>📍 ${zone}</h2>`;
+
+
+// tanks
+app.innerHTML+=`<h3>🏗️ الخزانات</h3>`;
+if(zdata.tanks.length===0) app.innerHTML+="لا توجد خزانات";
+
+
+zdata.tanks.forEach(t=>{
+app.innerHTML+=`
+<div>${t[0]} <span class="badge ${t[1]}"></span></div>
+`;
+});
+
+
+// wells
+app.innerHTML+=`<h3>💧 الآبار</h3>`;
+if(zdata.wells.length===0) app.innerHTML+="لا توجد آبار";
+
+
+zdata.wells.forEach(w=>{
+app.innerHTML+=`
+<div>${w[0]} <span class="badge ${w[1]}"></span></div>
+`;
+});
+}
+
+
+}
+
+
+function openZone(z){
+zone=z;
+view="zone";
+render();
+}
+
+
+render();
+
+
+</script>
+
+
+</body>
+</html>
