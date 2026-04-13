@@ -3,77 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منشآت الري - ولاية جانت</title>
+<title>منشآت الري - جانت</title>
 
 
 <style>
 body{
 margin:0;
 font-family:Tahoma;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+background:#0f2027;
 color:#fff;
 }
 
 
 header{
 text-align:center;
-padding:18px;
-font-size:22px;
+padding:15px;
+font-size:20px;
 font-weight:bold;
+background:#203a43;
 }
 
 
 .container{
-max-width:1000px;
+max-width:900px;
 margin:auto;
 padding:15px;
 }
 
 
 .card{
-background:rgba(255,255,255,0.08);
+background:#1f3b4d;
 padding:15px;
-border-radius:15px;
 margin:10px 0;
-backdrop-filter:blur(10px);
+border-radius:12px;
 cursor:pointer;
-transition:0.2s;
 }
 
 
-.card:hover{transform:scale(1.02);}
-
-
-.title{font-size:18px;font-weight:bold;}
-
-
-.badge{
-padding:3px 8px;
-border-radius:6px;
-font-size:11px;
-margin-right:5px;
-}
-
-
-.green{background:#00c853;}
-.red{background:#d50000;}
-.yellow{background:#ffb300;color:#000;}
+.card:hover{background:#2a4d63;}
 
 
 .btn{
 background:#ff9800;
 border:none;
 padding:8px 12px;
-border-radius:10px;
+border-radius:8px;
+color:#fff;
 cursor:pointer;
 margin-bottom:10px;
-color:#fff;
 }
 
 
-h3{margin:10px 0;}
+.badge{
+padding:3px 7px;
+border-radius:5px;
+font-size:11px;
+}
 
 
+.green{background:#00c853;}
+.red{background:#d50000;}
+
+
+h3{margin-top:15px;}
 </style>
 </head>
 
@@ -90,161 +82,84 @@ h3{margin:10px 0;}
 <script>
 
 
-const data = {
-"برج الحواس":[
-{
-zone:"وسط المدينة",
-tanks:{
-"مرتفع":[
-{n:"2000 م³",s:"green"},
-{n:"100 م³",s:"red"},
-{n:"100 م³",s:"red"}
+let view="home";
+let zone="";
+
+
+const data={
+"برج الحواس":{
+"وسط المدينة":{
+tanks:[
+["2000 م³","green"],
+["100 م³","red"],
+["100 م³","red"],
+["300 م³","red"],
+["250 م³","red"]
 ],
-"عادي":[
-{n:"300 م³",s:"red"},
-{n:"250 م³",s:"red"}
+wells:[
+["12 م","green"],
+["12 م","green"],
+["12 م","green"]
 ]
 },
-wells:{
-"سطحي":[
-{n:"12 م",s:"green"},
-{n:"12 م",s:"green"},
-{n:"12 م",s:"green"}
-],
-"عميق":[]
-}
-},
-
-
-{
-zone:"إهدجيرن",
-tanks:{
-"مرتفع":[],
-"عادي":[{n:"500 م³",s:"red"}]
-},
-wells:{
-"سطحي":[],
-"عميق":[
-{n:"300 م",s:"green"},
-{n:"300 م",s:"green"},
-{n:"300 م",s:"red"},
-{n:"300 م",s:"red"},
-{n:"300 م",s:"red"}
-]
-}
-},
-
-
-{
-zone:"التبكات",
-tanks:{
-"مرتفع":[
-{n:"100 م³",s:"green"},
-{n:"200 م³",s:"green"}
-],
-"عادي":[]
-},
-wells:{
-"سطحي":[
-{n:"12 م",s:"red"},
-{n:"12 م",s:"green"}
-],
-"عميق":[]
-}
-},
-
-
-{
-zone:"تين قدازن",
-tanks:{
-"مرتفع":[{n:"150 م³",s:"green"}],
-"عادي":[]
-},
-wells:{
-"سطحي":[{n:"12 م",s:"green"}],
-"عميق":[]
-}
-},
-
-
-{
-zone:"تين تماشي",
-tanks:{
-"مرتفع":[{n:"100 م³",s:"green"}],
-"عادي":[]
-},
-wells:{
-"سطحي":[
-{n:"12 م",s:"green"},
-{n:"12 م",s:"green"},
-{n:"12 م",s:"red"},
-{n:"12 م",s:"red"},
-{n:"12 م",s:"red"}
-],
-"عميق":[]
-}
-},
-
-
-{
-zone:"إهرير",
-tanks:{
-"مرتفع":[],
-"عادي":[
-{n:"300 م³",s:"green"},
-{n:"150 م³",s:"green"},
-{n:"150 م³",s:"red"}
+"إهدجيرن":{
+tanks:[["500 م³","red"]],
+wells:[
+["300 م","green"],
+["300 م","green"],
+["300 م","red"],
+["300 م","red"],
+["300 م","red"]
 ]
 },
-wells:{
-"عميق":[{n:"120 م",s:"green"}],
-"سطحي":[
-{n:"12 م",s:"green"},
-{n:"12 م",s:"green"},
-{n:"12 م",s:"red"},
-{n:"12 م",s:"red"}
+"التبكات":{
+tanks:[
+["100 م³","green"],
+["200 م³","green"]
+],
+wells:[
+["12 م","red"],
+["12 م","green"]
 ]
+},
+"تين تماشي":{
+tanks:[["100 م³","green"]],
+wells:[
+["12 م","green"],
+["12 م","green"],
+["12 م","red"],
+["12 م","red"],
+["12 م","red"]
+]
+},
+"إهرير":{
+tanks:[
+["300 م³","green"],
+["150 م³","green"],
+["150 م³","red"]
+],
+wells:[
+["120 م","green"],
+["12 م","green"],
+["12 م","green"],
+["12 م","red"],
+["12 م","red"]
+]
+},
+"تنقلين":{
+tanks:[["150 م³","green"]],
+wells:[["12 م","green"]]
+},
+"بذاهجرين":{
+tanks:[],
+wells:[["10 م","green"]]
+},
+"تاشت":{
+tanks:[],
+wells:[]
 }
-},
-
-
-{
-zone:"تورست",
-tanks:{
-"مرتفع":[],
-"عادي":[{n:"50 م³",s:"green"}]
-},
-wells:{
-"سطحي":[{n:"12 م",s:"green"}],
-"عميق":[]
 }
-},
-
-
-{
-zone:"بذاهجرين",
-tanks:{
-"مرتفع":[],
-"عادي":[]
-},
-wells:{
-"سطحي":[{n:"10 م",s:"green"}],
-"عميق":[]
-}
-},
-
-
-{
-zone:"تاشت",
-tanks:{},
-wells:{}
-}
-];
-
-
-// ================= NAVIGATION =================
-let view="communes";
-let selectedZone="";
+};
 
 
 function render(){
@@ -254,119 +169,76 @@ let app=document.getElementById("app");
 app.innerHTML="";
 
 
-// ---------------- COMMUNES ----------------
-if(view==="communes"){
-
-
-app.innerHTML+=`
-<div class="card" onclick="openZones()">
-<div class="title">🏢 بلدية برج الحواس</div>
-اضغط للدخول إلى المناطق
+// HOME
+if(view==="home"){
+app.innerHTML=`
+<div class="card" onclick="view='zones';render()">
+🏢 بلدية برج الحواس
 </div>
 
 
 <div class="card">
-<div class="title">🏢 بلدية جانت</div>
-<div style="color:#ffeb3b">لا توجد منشآت (فارغة)</div>
+🏢 بلدية جانت (فارغة)
 </div>
 `;
 }
 
 
-// ---------------- ZONES ----------------
+// ZONES
 else if(view==="zones"){
+app.innerHTML=`<button class="btn" onclick="view='home';render()">⬅ رجوع</button>`;
 
 
-app.innerHTML+=`<button class="btn" onclick="back()">⬅ رجوع</button>`;
-
-
-data["برج الحواس"].forEach(z=>{
+for(let z in data["برج الحواس"]){
 app.innerHTML+=`
-<div class="card" onclick="openZone('${z.zone}')">
-📍 ${z.zone}
+<div class="card" onclick="openZone('${z}')">
+📍 ${z}
 </div>
 `;
-});
+}
 }
 
 
-// ---------------- DETAILS ----------------
+// DETAILS
 else if(view==="zone"){
+let zdata=data["برج الحواس"][zone];
 
 
-let z=data["برج الحواس"].find(x=>x.zone===selectedZone);
+app.innerHTML=`<button class="btn" onclick="view='zones';render()">⬅ رجوع</button>`;
+app.innerHTML+=`<h2>📍 ${zone}</h2>`;
 
 
-app.innerHTML+=`<button class="btn" onclick="back()">⬅ رجوع</button>`;
-app.innerHTML+=`<h2>📍 ${selectedZone}</h2>`;
+// tanks
+app.innerHTML+=`<h3>🏗️ الخزانات</h3>`;
+if(zdata.tanks.length===0) app.innerHTML+="لا توجد خزانات";
 
 
-// -------- TANKS --------
-app.innerHTML+=`<div class="card"><h3>🏗️ الخزانات</h3>`;
-
-
-for(let type in z.tanks){
-app.innerHTML+=`<h4>🔹 ${type}</h4>`;
-
-
-(z.tanks[type]||[]).forEach(t=>{
+zdata.tanks.forEach(t=>{
 app.innerHTML+=`
-<div>${t.n}
-<span class="badge ${t.s}">
-${t.s==="green"?"يشتغل":"متوقف"}
-</span>
-</div>
+<div>${t[0]} <span class="badge ${t[1]}"></span></div>
+`;
+});
+
+
+// wells
+app.innerHTML+=`<h3>💧 الآبار</h3>`;
+if(zdata.wells.length===0) app.innerHTML+="لا توجد آبار";
+
+
+zdata.wells.forEach(w=>{
+app.innerHTML+=`
+<div>${w[0]} <span class="badge ${w[1]}"></span></div>
 `;
 });
 }
 
 
-app.innerHTML+=`</div>`;
-
-
-// -------- WELLS --------
-app.innerHTML+=`<div class="card"><h3>💧 الآبار</h3>`;
-
-
-for(let type in z.wells){
-app.innerHTML+=`<h4>🔹 ${type}</h4>`;
-
-
-(z.wells[type]||[]).forEach(w=>{
-app.innerHTML+=`
-<div>${w.n}
-<span class="badge ${w.s}">
-${w.s==="green"?"يشتغل":"متوقف"}
-</span>
-</div>
-`;
-});
-}
-
-
-app.innerHTML+=`</div>`;
-}
-
-
-}
-
-
-function openZones(){
-view="zones";
-render();
 }
 
 
 function openZone(z){
-selectedZone=z;
+zone=z;
 view="zone";
-render();
-}
-
-
-function back(){
-if(view==="zone") view="zones";
-else view="communes";
 render();
 }
 
