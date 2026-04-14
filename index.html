@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>لوحة الري</title>
+<title>نظام الري</title>
 
 
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
@@ -15,11 +13,9 @@
 
 
 :root {
-    --main-blue: #0ea5e9;
-    --light-blue: #38bdf8;
-    --aqua: #67e8f9;
+    --main: #0ea5e9;
+    --light: #38bdf8;
     --bg: linear-gradient(135deg,#e0f2fe,#bae6fd,#7dd3fc);
-    --card: white;
     --border: #bae6fd;
 }
 
@@ -39,132 +35,156 @@ body {
 
 /* Sidebar */
 aside {
-    width: 260px;
-    height: 100vh;
+    width: 250px;
     background: white;
-    border-left: 4px solid var(--main-blue);
+    border-left: 4px solid var(--main);
     padding: 20px;
+    height: 100vh;
     position: fixed;
-    box-shadow: 0 0 25px rgba(0,0,0,0.1);
 }
 
 
 .logo {
     font-size: 22px;
     font-weight: bold;
-    color: var(--main-blue);
+    color: var(--main);
     margin-bottom: 30px;
 }
 
 
-/* nav */
 .nav-link {
     padding: 12px;
-    margin-bottom: 10px;
     border-radius: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
-    border: 2px solid transparent;
 }
 
 
-.nav-link:hover,
-.nav-link.active {
-    background: var(--main-blue);
+.nav-link.active,
+.nav-link:hover {
+    background: var(--main);
     color: white;
-    border-color: var(--light-blue);
 }
 
 
 /* Main */
 main {
-    margin-right: 260px;
-    padding: 30px;
+    margin-right: 250px;
+    padding: 20px;
     width: 100%;
 }
 
 
-/* header box */
+/* Header */
 .header-box {
     background: white;
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
     border: 2px solid var(--border);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 
-/* grid */
+/* Grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    gap: 15px;
 }
 
 
-/* cards */
+/* Cards */
 .card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
     border: 2px solid var(--border);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     cursor: pointer;
 }
 
 
 .card:hover {
-    transform: translateY(-5px);
-    border-color: var(--main-blue);
+    border-color: var(--main);
+    transform: translateY(-3px);
 }
 
 
-/* section boxes */
+/* Sections */
 .section-box {
     background: white;
-    padding: 20px;
-    border-radius: 16px;
+    padding: 15px;
+    border-radius: 15px;
     border: 2px solid var(--border);
 }
 
 
-/* items */
-.item-row {
+/* Items */
+.card-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background: #f0f9ff;
+    border: 2px solid var(--border);
+    border-radius: 12px;
     padding: 12px;
     margin-top: 10px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: #f0f9ff;
 }
 
 
+.title {
+    font-weight: bold;
+}
+
+
+.sub {
+    font-size: 12px;
+    color: #64748b;
+}
+
+
+/* Status */
 .status {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
 }
 
 
-.green { background: #22c55e; }
-.red { background: #ef4444; }
-
-
-/* button */
-.btn {
-    padding: 8px 15px;
-    border-radius: 10px;
-    border: none;
-    background: var(--main-blue);
-    color: white;
-    cursor: pointer;
-    margin-bottom: 15px;
+.green {
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
 }
 
 
-.btn:hover {
-    background: #0284c7;
+.red {
+    background: #ef4444;
+    box-shadow: 0 0 8px #ef4444;
+}
+
+
+/* Button */
+.btn {
+    background: var(--main);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+
+/* Mobile */
+@media(max-width:768px){
+    aside {
+        width: 70px;
+    }
+    aside span {
+        display: none;
+    }
+    main {
+        margin-right: 70px;
+    }
 }
 
 
@@ -179,8 +199,8 @@ main {
     <div class="logo">🚰 ري جانت</div>
 
 
-    <div class="nav-link active" onclick="view='home';render()">🏠 الرئيسية</div>
-    <div class="nav-link" onclick="view='zones';render()">📍 المناطق</div>
+    <div class="nav-link active" onclick="view='home';render()">🏠 <span>الرئيسية</span></div>
+    <div class="nav-link" onclick="view='zones';render()">📍 <span>المناطق</span></div>
 </aside>
 
 
@@ -196,4 +216,128 @@ let zone="";
 
 const data = {
     "برج الحواس": {
-        "وسط
+        "وسط المدينة": {
+            tanks: [["2000 م³","green"],["100 م³","red"]],
+            wells: [["12 م","green"],["12 م","green"]]
+        },
+        "إهرير": {
+            tanks: [["300 م³","green"],["150 م³","red"]],
+            wells: [["120 م","green"],["12 م","red"]]
+        },
+        "إهدجيرن": {
+            tanks: [["500 م³","red"]],
+            wells: [["300 م","green"],["300 م","red"]]
+        }
+    }
+};
+
+
+function render(){
+const app=document.getElementById("app");
+
+
+if(view==="home"){
+app.innerHTML=`
+<div class="header-box">
+<h2>لوحة التحكم</h2>
+<p>نظام مراقبة منشآت الري</p>
+</div>
+
+
+<div class="grid">
+<div class="card" onclick="view='zones';render()">
+<h3>🏢 برج الحواس</h3>
+<p>${Object.keys(data["برج الحواس"]).length} مناطق</p>
+</div>
+</div>
+`;
+}
+
+
+else if(view==="zones"){
+app.innerHTML=`
+<button class="btn" onclick="view='home';render()">⬅ رجوع</button>
+
+
+<div class="header-box">
+<h2>📍 المناطق</h2>
+</div>
+
+
+<div class="grid">
+${Object.keys(data["برج الحواس"]).map(z=>`
+<div class="card" onclick="openZone('${z}')">
+<h4>${z}</h4>
+<p>عرض التفاصيل</p>
+</div>
+`).join("")}
+</div>
+`;
+}
+
+
+else if(view==="zone"){
+let zdata=data["برج الحواس"][zone];
+
+
+app.innerHTML=`
+<button class="btn" onclick="view='zones';render()">⬅ رجوع</button>
+
+
+<div class="header-box">
+<h2>📍 ${zone}</h2>
+</div>
+
+
+<div class="grid">
+
+
+<div class="section-box">
+<h3>🏗️ الخزانات (${zdata.tanks.length})</h3>
+${zdata.tanks.map(t=>`
+<div class="card-item">
+<div>
+<div class="title">${t[0]}</div>
+<div class="sub">السعة</div>
+</div>
+<div class="status ${t[1]}"></div>
+</div>
+`).join("")}
+</div>
+
+
+<div class="section-box">
+<h3>💧 الآبار (${zdata.wells.length})</h3>
+${zdata.wells.map(w=>`
+<div class="card-item">
+<div>
+<div class="title">${w[0]}</div>
+<div class="sub">العمق</div>
+</div>
+<div class="status ${w[1]}"></div>
+</div>
+`).join("")}
+</div>
+
+
+</div>
+`;
+}
+}
+
+
+function openZone(z){
+zone=z;
+view="zone";
+render();
+}
+
+
+render();
+
+
+</script>
+
+
+</body>
+</html>
