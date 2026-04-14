@@ -12,60 +12,188 @@
 
 
 <style>
+
+
 :root {
-    --bg: linear-gradient(135deg, #0f172a, #1e293b);
-    --card: rgba(255,255,255,0.07);
-    --border: rgba(255,255,255,0.1);
-    --primary: #3b82f6;
-    --text: #f1f5f9;
+    --main-blue: #0ea5e9;
+    --light-blue: #38bdf8;
+    --aqua: #67e8f9;
+    --bg: linear-gradient(135deg,#e0f2fe,#bae6fd,#7dd3fc);
+    --card: white;
+    --border: #bae6fd;
 }
 
 
 * {
     box-sizing: border-box;
-    transition: 0.3s;
+    font-family: 'Tajawal', sans-serif;
 }
 
 
 body {
     margin: 0;
-    font-family: 'Tajawal', sans-serif;
     background: var(--bg);
-    color: var(--text);
     display: flex;
 }
 
 
 /* Sidebar */
 aside {
-    width: 250px;
+    width: 260px;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(15px);
-    border-left: 1px solid var(--border);
+    background: white;
+    border-left: 4px solid var(--main-blue);
     padding: 20px;
     position: fixed;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
 }
 
 
 .logo {
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 40px;
-    color: var(--primary);
+    color: var(--main-blue);
+    margin-bottom: 30px;
 }
 
 
+/* nav */
 .nav-link {
     padding: 12px;
-    border-radius: 12px;
     margin-bottom: 10px;
+    border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    gap: 10px;
+    border: 2px solid transparent;
 }
 
 
 .nav-link:hover,
 .nav-link.active {
-    background: linear-gradient(
+    background: var(--main-blue);
+    color: white;
+    border-color: var(--light-blue);
+}
+
+
+/* Main */
+main {
+    margin-right: 260px;
+    padding: 30px;
+    width: 100%;
+}
+
+
+/* header box */
+.header-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+
+/* grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+    gap: 20px;
+}
+
+
+/* cards */
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    border: 2px solid var(--border);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    cursor: pointer;
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--main-blue);
+}
+
+
+/* section boxes */
+.section-box {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    border: 2px solid var(--border);
+}
+
+
+/* items */
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: #f0f9ff;
+}
+
+
+.status {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+
+.green { background: #22c55e; }
+.red { background: #ef4444; }
+
+
+/* button */
+.btn {
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: none;
+    background: var(--main-blue);
+    color: white;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+
+.btn:hover {
+    background: #0284c7;
+}
+
+
+</style>
+</head>
+
+
+<body>
+
+
+<aside>
+    <div class="logo">🚰 ري جانت</div>
+
+
+    <div class="nav-link active" onclick="view='home';render()">🏠 الرئيسية</div>
+    <div class="nav-link" onclick="view='zones';render()">📍 المناطق</div>
+</aside>
+
+
+<main id="app"></main>
+
+
+<script>
+
+
+let view="home";
+let zone="";
+
+
+const data = {
+    "برج الحواس": {
+        "وسط
