@@ -1,253 +1,302 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منشآت الري - جانت</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة منشآت الري | جانت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --sidebar-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent-color: #3b82f6; /* لون أزرق مثل الصورة */
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+        }
 
 
-<style>
-body{
-margin:0;
-font-family:Tahoma;
-background:#0f2027;
-color:#fff;
-}
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
 
 
-header{
-text-align:center;
-padding:15px;
-font-size:20px;
-font-weight:bold;
-background:#203a43;
-}
+        body {
+            margin: 0;
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
 
 
-.container{
-max-width:900px;
-margin:auto;
-padding:15px;
-}
+        /* Sidebar Layout */
+        aside {
+            width: 260px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            right: 0;
+        }
 
 
-.card{
-background:#1f3b4d;
-padding:15px;
-margin:10px 0;
-border-radius:12px;
-cursor:pointer;
-}
+        main {
+            margin-right: 260px;
+            flex: 1;
+            padding: 40px;
+        }
 
 
-.card:hover{background:#2a4d63;}
+        header {
+            margin-bottom: 30px;
+        }
 
 
-.btn{
-background:#ff9800;
-border:none;
-padding:8px 12px;
-border-radius:8px;
-color:#fff;
-cursor:pointer;
-margin-bottom:10px;
-}
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
 
-.badge{
-padding:3px 7px;
-border-radius:5px;
-font-size:11px;
-}
+        /* Navigation Links */
+        .nav-link {
+            padding: 12px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
 
-.green{background:#00c853;}
-.red{background:#d50000;}
+        .nav-link:hover, .nav-link.active {
+            background: var(--accent-color);
+            color: white;
+        }
 
 
-h3{margin-top:15px;}
-</style>
+        /* Cards & Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+        }
+
+
+        .card h4 { margin: 0; font-size: 18px; }
+
+
+        /* Badges & Status */
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+
+        .bg-green { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .bg-red { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+            border-radius: 12px;
+        }
+
+
+        .btn-back {
+            background: none;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+
+        .btn-back:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            aside { width: 70px; padding: 10px; }
+            aside span { display: none; }
+            main { margin-right: 70px; padding: 20px; }
+        }
+    </style>
 </head>
-
-
 <body>
 
 
-<header>🚰 منشآت الري - ولاية جانت</header>
+<aside>
+    <div class="logo">🚰 <span>ريّ جانت</span></div>
+    <div class="nav-link active" onclick="view='home';render()">
+        🏠 <span>الرئيسية</span>
+    </div>
+    <div class="nav-link" onclick="view='zones';render()">
+        📍 <span>المناطق</span>
+    </div>
+</aside>
 
 
-<div class="container" id="app"></div>
+<main id="app"></main>
 
 
 <script>
+    let view = "home";
+    let zone = "";
 
 
-let view="home";
-let zone="";
+    const data = {
+        "برج الحواس": {
+            "وسط المدينة": {
+                tanks: [["2000 م³", "green"], ["100 م³", "red"]],
+                wells: [["12 م", "green"], ["12 م", "green"]]
+            },
+            "إهرير": {
+                tanks: [["300 م³", "green"], ["150 م³", "red"]],
+                wells: [["120 م", "green"], ["12 م", "red"]]
+            },
+            "إهدجيرن": {
+                tanks: [["500 م³", "red"]],
+                wells: [["300 م", "green"], ["300 م", "red"]]
+            }
+            // يمكن إضافة باقي المناطق هنا بنفس التنسيق
+        }
+    };
 
 
-const data={
-"برج الحواس":{
-"وسط المدينة":{
-tanks:[
-["2000 م³","green"],
-["100 م³","red"],
-["100 م³","red"],
-["300 م³","red"],
-["250 م³","red"]
-],
-wells:[
-["12 م","green"],
-["12 م","green"],
-["12 م","green"]
-]
-},
-"إهدجيرن":{
-tanks:[["500 م³","red"]],
-wells:[
-["300 م","green"],
-["300 م","green"],
-["300 م","red"],
-["300 م","red"],
-["300 م","red"]
-]
-},
-"تبكات":{
-tanks:[
-["100 م³","green"],
-["200 م³","green"]
-],
-wells:[
-["12 م","red"],
-["12 م","green"]
-]
-},
-"تين تماشي":{
-tanks:[["100 م³","green"]],
-wells:[
-["12 م","green"],
-["12 م","green"],
-["12 م","red"],
-["12 م","red"],
-["12 م","red"]
-]
-},
-"إهرير":{
-tanks:[
-["300 م³","green"],
-["150 م³","green"],
-["150 م³","red"]
-],
-wells:[
-["120 م","green"],
-["12 م","green"],
-["12 م","green"],
-["12 م","red"],
-["12 م","red"]
-]
-},
-"تين قدازن":{
-tanks:[["150 م³","green"]],
-wells:[["12 م","green"]]
-},
-"ابذاهجرين":{
-tanks:[],
-wells:[["10 م","green"]]
-},
-"تاست":{
-tanks:[],
-wells:[]
-}
-}
-};
+    function render() {
+        const app = document.getElementById("app");
+        app.innerHTML = "";
 
 
-function render(){
+        if (view === "home") {
+            app.innerHTML = `
+                <header>
+                    <h1>لوحة التحكم الرئيسية</h1>
+                    <p style="color: #94a3b8;">مرحباً بك، نظام مراقبة منشآت الري بولاية جانت</p>
+                </header>
+                <div class="grid">
+                    <div class="card" onclick="view='zones';render()">
+                        <h3>🏢 بلدية برج الحواس</h3>
+                        <p>${Object.keys(data["برج الحواس"]).length} مناطق مسجلة</p>
+                        <div style="color:var(--accent-color)">عرض التفاصيل ←</div>
+                    </div>
+                    <div class="card" style="opacity: 0.5; cursor: not-allowed;">
+                        <h3>🏢 بلدية جانت</h3>
+                        <p>قيد التحديث...</p>
+                    </div>
+                </div>
+            `;
+        } 
+        
+        else if (view === "zones") {
+            app.innerHTML = `
+                <button class="btn-back" onclick="view='home';render()">🏠 العودة للرئيسية</button>
+                <h2>📍 مناطق بلدية برج الحواس</h2>
+                <div class="grid">
+                    ${Object.keys(data["برج الحواس"]).map(z => `
+                        <div class="card" onclick="openZone('${z}')">
+                            <h4>${z}</h4>
+                            <p>اضغط لاستعراض الخزانات والآبار</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
 
-let app=document.getElementById("app");
-app.innerHTML="";
+        else if (view === "zone") {
+            let zdata = data["برج الحواس"][zone];
+            app.innerHTML = `
+                <button class="btn-back" onclick="view='zones';render()">⬅ العودة للمناطق</button>
+                <header>
+                    <h1>منطقة: ${zone}</h1>
+                </header>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <section>
+                        <h3>🏗️ الخزانات (${zdata.tanks.length})</h3>
+                        ${zdata.tanks.map(t => `
+                            <div class="item-row">
+                                <span>${t[0]}</span>
+                                <span class="status-dot ${t[1] === 'green' ? 'bg-green' : 'bg-red'}"></span>
+                            </div>
+                        `).join('') || 'لا توجد بيانات'}
+                    </section>
 
 
-// HOME
-if(view==="home"){
-app.innerHTML=`
-<div class="card" onclick="view='zones';render()">
-🏢 بلدية برج الحواس
-</div>
+                    <section>
+                        <h3>💧 الآبار (${zdata.wells.length})</h3>
+                        ${zdata.wells.map(w => `
+                            <div class="item-row">
+                                <span>${w[0]}</span>
+                                <span class="status-dot ${w[1] === 'green' ? 'bg-green' : 'bg-red'}"></span>
+                            </div>
+                        `).join('') || 'لا توجد بيانات'}
+                    </section>
+                </div>
+            `;
+        }
+    }
 
 
-<div class="card">
-🏢 بلدية جانت 
-</div>
-`;
-}
+    function openZone(z) {
+        zone = z;
+        view = "zone";
+        render();
+    }
 
 
-// ZONES
-else if(view==="zones"){
-app.innerHTML=`<button class="btn" onclick="view='home';render()">⬅ رجوع</button>`;
-
-
-for(let z in data["برج الحواس"]){
-app.innerHTML+=`
-<div class="card" onclick="openZone('${z}')">
-📍 ${z}
-</div>
-`;
-}
-}
-
-
-// DETAILS
-else if(view==="zone"){
-let zdata=data["برج الحواس"][zone];
-
-
-app.innerHTML=`<button class="btn" onclick="view='zones';render()">⬅ رجوع</button>`;
-app.innerHTML+=`<h2>📍 ${zone}</h2>`;
-
-
-// tanks
-app.innerHTML+=`<h3>🏗️ الخزانات</h3>`;
-if(zdata.tanks.length===0) app.innerHTML+="لا توجد خزانات";
-
-
-zdata.tanks.forEach(t=>{
-app.innerHTML+=`
-<div>${t[0]} <span class="badge ${t[1]}"></span></div>
-`;
-});
-
-
-// wells
-app.innerHTML+=`<h3>💧 الآبار</h3>`;
-if(zdata.wells.length===0) app.innerHTML+="لا توجد آبار";
-
-
-zdata.wells.forEach(w=>{
-app.innerHTML+=`
-<div>${w[0]} <span class="badge ${w[1]}"></span></div>
-`;
-});
-}
-
-
-}
-
-
-function openZone(z){
-zone=z;
-view="zone";
-render();
-}
-
-
-render();
-
-
+    render();
 </script>
 
 
 </body>
 </html>
+
